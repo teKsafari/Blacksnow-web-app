@@ -8,6 +8,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap');
 
+    /* ── GLOBAL SCROLLBAR ── */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -18,12 +19,17 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 3px;
+      background: rgba(0, 198, 255, 0.2);
+      border-radius: 10px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(0, 198, 255, 0.4);
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 198, 255, 0.2) rgba(0, 0, 0, 0.1);
     }
 
     *,
@@ -773,9 +779,15 @@
       #left {
         display: flex;
         flex-direction: column;
-        overflow-y: auto; /* Allow scrolling for the whole panel if needed */
+        overflow-y: auto; /* Allow scrolling for the whole panel */
+      }
+
+      .help-footer-btn {
+        display: none !important;
       }
     }
+
+
 
     /* ── RUNNING ANIMATION ── */
     @keyframes pulse-glow {
@@ -1078,6 +1090,8 @@
     </div>
   </div>
 
+
+
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/loader.js"></script>
 
   <script>
@@ -1200,7 +1214,8 @@
           html += `<input type="range" min="60" max="70" value="${val}" oninput="updateParam(${index},'target',this.value)"><span>${val}°</span>`;
         }
         if (block.action === "wait") {
-          html += `<input type="number" min="0" style="width:55px;" value="${block.params.seconds || 1}" oninput="updateParam(${index},'seconds',this.value)"> s`;
+          const s = block.params.seconds !== undefined && block.params.seconds !== "" ? block.params.seconds : "";
+          html += `<input type="number" min="0" placeholder="1" style="width:55px;" value="${s}" oninput="updateParam(${index},'seconds',this.value)"> s`;
         }
         html += `<button class="block-del" onclick="removeBlock(${index})">✕</button>`;
         div.innerHTML = html; ws.appendChild(div);
@@ -1451,6 +1466,8 @@
 
       monacoEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => runCode());
     });
+
+
 
     window.addEventListener('DOMContentLoaded', () => { logMessage("Ready.", "info"); initResizer(); });
   </script>
