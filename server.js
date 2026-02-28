@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const BASE_URL = "https://black-snow.onrender.com/api/house";
+const BASE_URL = "https://muqsit.io/api/house";
 
 app.use(cors());
 app.use(express.json());
